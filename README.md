@@ -1,6 +1,6 @@
 # EntryFlow
 
-App icon/logo is a list document icon with gradient added, from: https://www.flaticon.com/free-icon/list-document-interface-symbol_36063
+App icon/logo is a list document icon with gradient added, from: <a href='https://www.flaticon.com/free-icon/list-document-interface-symbol_36063' target="_blank">https://www.flaticon.com/free-icon/list-document-interface-symbol_36063</a>
 
 Main color scheme used in the app: Hex #7E577F - Dark Pastel Pink, Hex #124870 - Dark Pastel Blue, #FFFFFF - White, #262626 - Dark Gray
 
@@ -12,7 +12,7 @@ Followed minimalistic, clean UI design
 
 Focused on the main tasks, no distraction, easy on the eyes
 
-<a href='https://dl.dashnyam.com/entryflow.apk'>Latest Test Build APK Download</a>
+<a href='https://dl.dashnyam.com/entryflow.apk' target="_blank">Latest Test Build APK Download</a>
 
 <p>
   <img src="https://dl.dashnyam.com/entryflow1.png" width="150" />
