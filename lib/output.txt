@@ -1,0 +1,31 @@
+Folder PATH listing for volume NVMe SSD
+Volume serial number is 6AD0-9BD1
+C:.
+³   base_controller.dart
+³   base_screen.dart
+³   main.dart
+³   navigationbar.dart
+³   output.txt
+³   structure.bat
+³   
+ÃÄÄÄconstants
+³       nav_ids.dart
+³       
+ÃÄÄÄmodels
+³       item.dart
+³       
+ÃÄÄÄnavs
+³       home_nav.dart
+³       news_nav.dart
+³       
+ÃÄÄÄscreens
+³       home_page.dart
+³       news_page.dart
+³       
+ÃÄÄÄservices
+³       fetch_service.dart
+³       
+ÃÄÄÄutils
+³       custom_cache_manager.dart
+³       
+ÀÄÄÄwidgets
