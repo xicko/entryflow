@@ -288,13 +288,16 @@ class _HomePageState extends State<HomePage> {
   // main screen widgets
   @override
   Widget build(BuildContext context) {
+    // getting user's device screen height
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             children: [
-              SizedBox(height: 100), // top space
+              SizedBox(height: screenHeight * 0.112), // top space
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
