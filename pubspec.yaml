@@ -38,7 +38,8 @@ flutter:
   assets:
   - assets/fonts/
   - assets/icon/
-  - assets/logo1000.png
+  - assets/logoLight.png
+  - assets/logoDark.png
   - assets/sounds/click.wav
 
   fonts:

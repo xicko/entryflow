@@ -291,6 +291,9 @@ class _HomePageState extends State<HomePage> {
     // getting user's device screen height
     double screenHeight = MediaQuery.of(context).size.height;
 
+    // checking if dark mode is on for theming some widgets
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -303,7 +306,8 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(
-                    image: AssetImage('assets/logo1000.png'), 
+                    // changing logo src based on theme
+                    image: isDarkMode ? AssetImage('assets/logoDark.png') : AssetImage('assets/logoLight.png'), 
                     width: 80, 
                     height: 80
                   ),
@@ -312,7 +316,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 36,
-                      color: Color.fromARGB(255, 38, 38, 38),
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.normal,
                     ),
@@ -330,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                     icon: Icon(
                       Icons.refresh_rounded,
                       size: 26,
-                      color: const Color.fromARGB(255, 38, 38, 38),
+                      color: Theme.of(context).colorScheme.onPrimary
                     ),
                   ),
                   IconButton(
@@ -339,8 +343,8 @@ class _HomePageState extends State<HomePage> {
                       Icons.add,
                       size: 30,
                       color: 
-                        // const Color.fromARGB(255, 0, 75, 161),
-                        const Color(0xFF124870)
+                        // pastel blue,
+                        Theme.of(context).colorScheme.primary
                     ),
                   ),
                   IconButton(
@@ -349,8 +353,8 @@ class _HomePageState extends State<HomePage> {
                       Icons.delete,
                       size: 24,
                       color: 
-                        // const Color.fromARGB(255, 161, 11, 0),
-                        Color(0xFF7E577F)
+                        // pastel pink
+                        Theme.of(context).colorScheme.secondary
                     ),
                   ),
                 ],
@@ -374,26 +378,26 @@ class _HomePageState extends State<HomePage> {
                         child: TextField(
                           controller: _searchController,
                           style: TextStyle(
-                            fontWeight: FontWeight.w600
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.onSecondary,
                           ),
-                          cursorColor: Theme.of(context).primaryColor,
+                          cursorColor: Theme.of(context).colorScheme.primary,
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: Theme.of(context).colorScheme.surface,
                             labelText: 'Filter',
                             labelStyle: TextStyle(
-                              color: Colors.black,
+                              color: Theme.of(context).colorScheme.onSecondary,
                               fontWeight: FontWeight.w500
                             ),
                             iconColor: Colors.black,
-                            focusColor: Colors.black,
                             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 bottomLeft: Radius.circular(8)
                               ),
-                              borderSide: BorderSide(color: Colors.black),
+                              borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface),
                               
                             ),
                             border: OutlineInputBorder(
@@ -419,9 +423,9 @@ class _HomePageState extends State<HomePage> {
                       height: 48,
                       decoration: BoxDecoration(
                         border: Border(
-                          top: BorderSide(color: Color.fromARGB(255, 41, 41, 41), width: 1),
-                          bottom: BorderSide(color: Color.fromARGB(255, 41, 41, 41), width: 1),
-                          right: BorderSide(color: Color.fromARGB(255, 41, 41, 41), width: 1),
+                          top: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
+                          bottom: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
+                          right: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
                           left: BorderSide.none,
                         ),
                         borderRadius: BorderRadius.only(
@@ -435,7 +439,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: _isSearchMode ? _performSearch : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
+                          foregroundColor: Theme.of(context).colorScheme.surface,
                           elevation: 0,
                           shape: RoundedRectangleBorder( // rounding the edges
                             borderRadius: BorderRadius.only(
@@ -446,7 +450,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         child: Icon(
                           _isSearchMode ? Icons.search_rounded : Icons.search_off,
-                          color: Color.fromARGB(255, 37, 37, 37),
+                          color: _isSearchMode 
+                          ? Color.fromARGB(255, 37, 37, 37) 
+                          : (isDarkMode ? Colors.white : Color.fromARGB(255, 37, 37, 37)),
                           size: 30,
                         ),
                       ),
@@ -484,7 +490,7 @@ class _HomePageState extends State<HomePage> {
         sizeFactor: animation,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 8),
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: Theme.of(context).colorScheme.primaryContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16)
           ),
@@ -502,10 +508,18 @@ class _HomePageState extends State<HomePage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16)
             ),
-            title: Text(item.title),
+            title: Text(
+              item.title,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary
+              ),
+            ),
             subtitle: Text(
               'Created at: ${DateFormat.yMMMMd().format(item.createdAt)}',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(
+                fontSize: 12,
+                color: Theme.of(context).colorScheme.onSecondary
+              ),
             ),
           ),
         ),
@@ -520,7 +534,7 @@ class _HomePageState extends State<HomePage> {
         sizeFactor: animation,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 8),
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: Theme.of(context).colorScheme.primaryContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16)
           ),
@@ -538,10 +552,18 @@ class _HomePageState extends State<HomePage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16)
             ),
-            title: Text(item.title),
+            title: Text(
+              item.title,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary
+              ),
+            ),
             subtitle: Text(
               'Created at: ${DateFormat.yMMMMd().format(item.createdAt)}',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(
+                fontSize: 12,
+                color: Theme.of(context).colorScheme.onSecondary
+              ),
             ),
           ),
         ),

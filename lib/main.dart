@@ -11,6 +11,7 @@ import 'base_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 import 'package:entryflow/base_controller.dart';
+import 'theme/theme.dart';
 
 void main() {
   Get.put<BaseController>(BaseController());
@@ -29,49 +30,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const BaseScreen(),
-      theme: ThemeData(
-        primaryColor: Color(0xFF124870),
-        scaffoldBackgroundColor: const Color(0xFFF5F5F5), // grey 100
-        fontFamily: 'Montserrat',
-
-        progressIndicatorTheme: ProgressIndicatorThemeData(
-          color: Color.fromARGB(255, 38, 38, 38),
-        ),
-
-        navigationBarTheme: NavigationBarThemeData(
-          indicatorColor: Color.fromARGB(255, 38, 38, 38),
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        ),
-
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Colors.white,
-          splashColor: Color.fromARGB(255, 213, 213, 213),
-        ),
-
-        listTileTheme: ListTileThemeData(
-          titleTextStyle: TextStyle(
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-          subtitleTextStyle: TextStyle(
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          )
-        ),
-
-        snackBarTheme: SnackBarThemeData(
-          backgroundColor: Colors.white,
-          contentTextStyle: TextStyle(color: Color.fromARGB(255, 38, 38, 38)),
-        ),
-
-        dropdownMenuTheme: DropdownMenuThemeData(
-          menuStyle: MenuStyle(
-            backgroundColor: WidgetStateProperty.all(Colors.white),
-          ),
-        ),
-      ),
+      theme: lightMode,
+      darkTheme: darkMode,
     );
   }
 }

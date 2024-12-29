@@ -12,12 +12,12 @@ class BottomNavBar extends StatelessWidget {
           // animationDuration: Duration(seconds: 2),
           selectedIndex: BaseController.to.currentIndex.value,
           onDestinationSelected: (index) => BaseController.to.changePage(index),
-          destinations: const [
+          destinations: [
             NavigationDestination(
               icon: Icon(Icons.home_outlined),
               selectedIcon: Icon(
                 Icons.home,
-                color: Colors.white,
+                color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
               ),
               label: "Home",
             ),
@@ -25,7 +25,7 @@ class BottomNavBar extends StatelessWidget {
               icon: Icon(Icons.newspaper_rounded),
               selectedIcon: Icon(
                 Icons.newspaper_rounded,
-                color: Colors.white,
+                color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
               ),
               label: 'News',
             ),

@@ -44,6 +44,8 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
     _controller.setNavigationDelegate(
       NavigationDelegate(
         onPageFinished: (String url) {
+          // final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+
           _controller.runJavaScript('''
             var header = document.querySelector('header');
             if (header) {
@@ -59,6 +61,8 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
             if (scrollUp) {
               scrollUp.remove();
             }
+
+            
           ''');
         }
       )
@@ -256,7 +260,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _goToNext,
                     tooltip: 'Next',
                     elevation: 3,
-                    foregroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Color(0xFF124870),
                     child: Icon(
                       Icons.arrow_upward_rounded,
                       size: 30,
