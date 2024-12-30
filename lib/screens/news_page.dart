@@ -11,6 +11,7 @@ import 'package:xml/xml.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:entryflow/theme/colors.dart'; // theme specific colors
 
 class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
@@ -188,7 +189,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: AppColors.customSnackBarBackgroundColor(Theme.of(context).brightness),
                       borderRadius: BorderRadius.circular(50),
                       boxShadow: [
                         // subtle shadow
@@ -203,6 +204,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                       child: Text(
                         message,
                         style: TextStyle(
+                          color: AppColors.customSnackBarTextColor(Theme.of(context).brightness),
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -260,7 +262,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _goToNext,
                     tooltip: 'Next',
                     elevation: 3,
-                    foregroundColor: Color(0xFF124870),
+                    foregroundColor: AppColors.nextButtonColor(Theme.of(context).brightness),
                     child: Icon(
                       Icons.arrow_upward_rounded,
                       size: 30,
@@ -270,7 +272,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _goToPrev,
                     tooltip: 'Previous',
                     elevation: 3,
-                    foregroundColor: Color.fromARGB(255, 97, 66, 98),
+                    foregroundColor: AppColors.prevButtonColor(Theme.of(context).brightness),
                     child: Icon(
                       Icons.arrow_downward_rounded,
                       size: 30,
@@ -280,17 +282,17 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _refreshWebView,
                     tooltip: 'Refresh',
                     elevation: 3,
-                    foregroundColor: Color.fromARGB(255, 38, 38, 38),
+                    foregroundColor: AppColors.refreshButtonColor(Theme.of(context).brightness),
                     child: Icon(
                       Icons.refresh_rounded,
                       size: 30,
                     ),
                   ),
                   FloatingActionButton(
-                    onPressed: _shareCurrentPage, // Calls the share function
+                    onPressed: _shareCurrentPage,
                     tooltip: 'Share',
                     elevation: 3,
-                    foregroundColor: Color.fromARGB(255, 38, 38, 38),
+                    foregroundColor: AppColors.shareButtonColor(Theme.of(context).brightness),
                     child: Icon(
                       Icons.share_rounded,
                       size: 26,

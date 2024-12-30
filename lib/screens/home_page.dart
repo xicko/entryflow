@@ -8,7 +8,9 @@
 // A custom cache manager is used for image caching to save resources and reduce data usage.
 
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:entryflow/theme/colors.dart'; // theme specific colors
 import 'package:cached_network_image/cached_network_image.dart'; // for caching images
 import 'package:intl/intl.dart'; // used intl for converting date to human readable date
 import 'package:entryflow/models/item.dart';
@@ -316,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 36,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: AppColors.titleTextColor(Theme.of(context).brightness),
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.normal,
                     ),
@@ -334,7 +336,7 @@ class _HomePageState extends State<HomePage> {
                     icon: Icon(
                       Icons.refresh_rounded,
                       size: 26,
-                      color: Theme.of(context).colorScheme.onPrimary
+                      color: AppColors.refreshListColor(Theme.of(context).brightness),
                     ),
                   ),
                   IconButton(
@@ -344,7 +346,7 @@ class _HomePageState extends State<HomePage> {
                       size: 30,
                       color: 
                         // pastel blue,
-                        Theme.of(context).colorScheme.primary
+                        AppColors.addItemColor(Theme.of(context).brightness),
                     ),
                   ),
                   IconButton(
@@ -354,7 +356,7 @@ class _HomePageState extends State<HomePage> {
                       size: 24,
                       color: 
                         // pastel pink
-                        Theme.of(context).colorScheme.secondary
+                        AppColors.deleteItemColor(Theme.of(context).brightness),
                     ),
                   ),
                 ],
@@ -379,33 +381,31 @@ class _HomePageState extends State<HomePage> {
                           controller: _searchController,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.onSecondary,
+                            color: AppColors.searchInputTextColor(Theme.of(context).brightness),
                           ),
-                          cursorColor: Theme.of(context).colorScheme.primary,
+                          cursorColor: AppColors.searchInputCursorColor(Theme.of(context).brightness),
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Theme.of(context).colorScheme.surface,
+                            fillColor: AppColors.searchInputFillColor(Theme.of(context).brightness),
                             labelText: 'Filter',
                             labelStyle: TextStyle(
-                              color: Theme.of(context).colorScheme.onSecondary,
+                              color: AppColors.searchInputLabelColor(Theme.of(context).brightness),
                               fontWeight: FontWeight.w500
                             ),
-                            iconColor: Colors.black,
+                            iconColor: AppColors.searchInputIconColor(Theme.of(context).brightness),
                             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 bottomLeft: Radius.circular(8)
                               ),
-                              borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface),
-                              
+                              borderSide: BorderSide(color: AppColors.searchInputFocusedBorderSideColor(Theme.of(context).brightness)),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(8),
                                 bottomLeft: Radius.circular(8)
                               ),
-                              borderSide: BorderSide(color: Colors.grey),
                             ),
                           ),
                           onChanged: (text) {
@@ -423,9 +423,9 @@ class _HomePageState extends State<HomePage> {
                       height: 48,
                       decoration: BoxDecoration(
                         border: Border(
-                          top: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
-                          bottom: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
-                          right: BorderSide(color: Theme.of(context).colorScheme.secondaryContainer, width: 1),
+                          top: BorderSide(color: AppColors.searchButtonBorderColor(Theme.of(context).brightness), width: 1),
+                          bottom: BorderSide(color: AppColors.searchButtonBorderColor(Theme.of(context).brightness), width: 1),
+                          right: BorderSide(color: AppColors.searchButtonBorderColor(Theme.of(context).brightness), width: 1),
                           left: BorderSide.none,
                         ),
                         borderRadius: BorderRadius.only(
@@ -439,7 +439,7 @@ class _HomePageState extends State<HomePage> {
                         onPressed: _isSearchMode ? _performSearch : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Theme.of(context).colorScheme.surface,
+                          foregroundColor: AppColors.searchButtonForegroundColor(Theme.of(context).brightness),
                           elevation: 0,
                           shape: RoundedRectangleBorder( // rounding the edges
                             borderRadius: BorderRadius.only(
@@ -452,7 +452,7 @@ class _HomePageState extends State<HomePage> {
                           _isSearchMode ? Icons.search_rounded : Icons.search_off,
                           color: _isSearchMode 
                           ? Color.fromARGB(255, 37, 37, 37) 
-                          : (isDarkMode ? Colors.white : Color.fromARGB(255, 37, 37, 37)),
+                          : AppColors.searchButtonIconColor(Theme.of(context).brightness),
                           size: 30,
                         ),
                       ),
@@ -490,7 +490,7 @@ class _HomePageState extends State<HomePage> {
         sizeFactor: animation,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 8),
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: AppColors.itemCardColor(Theme.of(context).brightness),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16)
           ),
@@ -511,14 +511,14 @@ class _HomePageState extends State<HomePage> {
             title: Text(
               item.title,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary
+                color: AppColors.itemTitleTextColor(Theme.of(context).brightness)
               ),
             ),
             subtitle: Text(
               'Created at: ${DateFormat.yMMMMd().format(item.createdAt)}',
               style: TextStyle(
                 fontSize: 12,
-                color: Theme.of(context).colorScheme.onSecondary
+                color: AppColors.itemSubtitleTextColor(Theme.of(context).brightness)
               ),
             ),
           ),
@@ -534,7 +534,7 @@ class _HomePageState extends State<HomePage> {
         sizeFactor: animation,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 8),
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: AppColors.itemCardColor(Theme.of(context).brightness),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16)
           ),
@@ -555,14 +555,14 @@ class _HomePageState extends State<HomePage> {
             title: Text(
               item.title,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary
+                color: AppColors.itemTitleTextColor(Theme.of(context).brightness)
               ),
             ),
             subtitle: Text(
               'Created at: ${DateFormat.yMMMMd().format(item.createdAt)}',
               style: TextStyle(
                 fontSize: 12,
-                color: Theme.of(context).colorScheme.onSecondary
+                color: AppColors.itemSubtitleTextColor(Theme.of(context).brightness)
               ),
             ),
           ),

@@ -1,23 +1,25 @@
+// element specific colors are in colors.dart
+
 import 'package:flutter/material.dart';
-// import '../colors/buttons.dart';
 
 // ==================================================================================================
 ThemeData lightMode = ThemeData(
   fontFamily: 'Montserrat',
   scaffoldBackgroundColor: const Color(0xFFF5F5F5), // grey 100
   colorScheme: ColorScheme(
-    primary: Color(0xFF124870),
-    primaryContainer: Colors.white,
-    secondary: Color(0xFF7E577F),
-    secondaryContainer: Color.fromARGB(255, 41, 41, 41),
-    surface: Colors.white,
-    error: Colors.black,
-    onPrimary: Color.fromARGB(255, 38, 38, 38),
-    onSecondary: Colors.black,
-    onSurface: Colors.black,
-    onError: Colors.black,
-    brightness: Brightness.light
+    primary: Color(0xFF124870), // Pastel blue for primary actions
+    primaryContainer: Color(0xFFD9E6F2), // Lighter pastel blue for containers
+    secondary: Color(0xFF7E577F), // Pastel pink/purple for secondary actions
+    secondaryContainer: Color(0xFFF5E3F2), // Lighter pastel pink for containers
+    surface: Colors.white, // Background for cards, dialogs, etc.
+    error: Color(0xFFFF4B4B), // Red for error states
+    onPrimary: Colors.white, // Text/icons on primary
+    onSecondary: Colors.white, // Text/icons on secondary
+    onSurface: Colors.black, // Text/icons on surface
+    onError: Colors.white, // Text/icons on error
+    brightness: Brightness.light, // Light theme brightness
   ),
+
 
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Color.fromARGB(255, 38, 38, 38),
@@ -70,18 +72,19 @@ ThemeData darkMode = ThemeData(
   fontFamily: 'Montserrat',
   scaffoldBackgroundColor: const Color.fromARGB(255, 20, 20, 20), // gray
   colorScheme: ColorScheme(
-    primary: Color(0xFF1C8FDF),
-    primaryContainer: Colors.grey[900],
-    secondary: Color(0xFFFEADFD),
-    secondaryContainer: Colors.white,
-    surface: Color.fromRGBO(33, 33, 33, 1),
-    error: Colors.black,
-    onPrimary: Colors.white,
-    onSecondary: Colors.white,
-    onSurface: Colors.white,
-    onError: Colors.white,
-    brightness: Brightness.dark
+  primary: Color(0xFF1C8FDF), // Pastel blue for primary actions
+    primaryContainer: Color(0xFF3C4A5F), // Darker pastel blue for containers
+    secondary: Color(0xFFFEADFD), // Pastel pink/purple for secondary actions
+    secondaryContainer: Color(0xFF4A4A4A), // Darker pastel pink for containers
+    surface: Color(0xFF212121), // Background for cards, dialogs, etc.
+    error: Color(0xFFFF4B4B), // Red for error states
+    onPrimary: Colors.black, // Text/icons on primary
+    onSecondary: Colors.black, // Text/icons on secondary
+    onSurface: Colors.white, // Text/icons on surface
+    onError: Colors.black, // Text/icons on error
+    brightness: Brightness.dark, // Dark theme brightness
   ),
+
 
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Colors.white,
