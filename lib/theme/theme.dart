@@ -20,7 +20,6 @@ ThemeData lightMode = ThemeData(
     brightness: Brightness.light, // Light theme brightness
   ),
 
-
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Color.fromARGB(255, 38, 38, 38),
   ),
@@ -41,17 +40,16 @@ ThemeData lightMode = ThemeData(
   ),
 
   listTileTheme: ListTileThemeData(
-    titleTextStyle: TextStyle(
-      fontFamily: 'Montserrat',
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
-    ),
-    subtitleTextStyle: TextStyle(
-      fontFamily: 'Montserrat',
-      fontWeight: FontWeight.w400,
-      color: Colors.black,
-    )
-  ),
+      titleTextStyle: TextStyle(
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
+      subtitleTextStyle: TextStyle(
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w400,
+        color: Colors.black,
+      )),
 
   snackBarTheme: SnackBarThemeData(
     backgroundColor: Colors.white,
@@ -65,14 +63,12 @@ ThemeData lightMode = ThemeData(
   ),
 );
 
-
-
 // ==================================================================================================
 ThemeData darkMode = ThemeData(
   fontFamily: 'Montserrat',
   scaffoldBackgroundColor: const Color.fromARGB(255, 20, 20, 20), // gray
   colorScheme: ColorScheme(
-  primary: Color(0xFF1C8FDF), // Pastel blue for primary actions
+    primary: Color(0xFF1C8FDF), // Pastel blue for primary actions
     primaryContainer: Color(0xFF3C4A5F), // Darker pastel blue for containers
     secondary: Color(0xFFFEADFD), // Pastel pink/purple for secondary actions
     secondaryContainer: Color(0xFF4A4A4A), // Darker pastel pink for containers
@@ -84,7 +80,6 @@ ThemeData darkMode = ThemeData(
     onError: Colors.black, // Text/icons on error
     brightness: Brightness.dark, // Dark theme brightness
   ),
-
 
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: Colors.white,
@@ -106,23 +101,20 @@ ThemeData darkMode = ThemeData(
   ),
 
   listTileTheme: ListTileThemeData(
-    titleTextStyle: TextStyle(
-      fontFamily: 'Montserrat',
-      fontWeight: FontWeight.w600,
-      color: Colors.black,
-    ),
-    subtitleTextStyle: TextStyle(
-      fontFamily: 'Montserrat',
-      fontWeight: FontWeight.w400,
-      color: Colors.black,
-    )
-  ),
+      titleTextStyle: TextStyle(
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
+      subtitleTextStyle: TextStyle(
+        fontFamily: 'Montserrat',
+        fontWeight: FontWeight.w400,
+        color: Colors.black,
+      )),
 
   snackBarTheme: SnackBarThemeData(
     backgroundColor: Colors.grey[900],
-    contentTextStyle: TextStyle(
-      color: Colors.white
-    ),
+    contentTextStyle: TextStyle(color: Colors.white),
   ),
 
   dropdownMenuTheme: DropdownMenuThemeData(

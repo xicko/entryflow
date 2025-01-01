@@ -13,9 +13,9 @@ class Item {
 
   factory Item.fromJson(Map<String, dynamic> json) {
     return Item(
-      id: json['id'], 
-      title: json['title'], 
-      image: json['image'], 
+      id: json['id'],
+      title: json['title'],
+      image: json['image'],
       createdAt: DateTime.parse(json['createdAt']),
     );
   }

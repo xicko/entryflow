@@ -10,14 +10,16 @@ class BottomNavBar extends StatelessWidget {
     return Obx(() => NavigationBar(
           // height: 120,
           // animationDuration: Duration(seconds: 2),
-          selectedIndex: BaseController.to.currentIndex.value,
+          selectedIndex: BaseController.to.currentNavIndex.value,
           onDestinationSelected: (index) => BaseController.to.changePage(index),
           destinations: [
             NavigationDestination(
               icon: Icon(Icons.home_outlined),
               selectedIcon: Icon(
                 Icons.home,
-                color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
               ),
               label: "Home",
             ),
@@ -25,7 +27,9 @@ class BottomNavBar extends StatelessWidget {
               icon: Icon(Icons.newspaper_rounded),
               selectedIcon: Icon(
                 Icons.newspaper_rounded,
-                color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
               ),
               label: 'News',
             ),

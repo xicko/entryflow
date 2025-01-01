@@ -6,6 +6,7 @@
 // previous article, with additional buttons to refresh the current page, and share the article(link).
 
 import 'dart:async';
+import 'package:entryflow/widgets/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:xml/xml.dart';
 import 'package:http/http.dart' as http;
@@ -20,8 +21,7 @@ class NewsPage extends StatefulWidget {
   NewsPageState createState() => NewsPageState();
 }
 
-class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
-  bool _isSnackBarVisible = false; // flag to track snackbar is currently active
+class NewsPageState extends State<NewsPage> with TickerProviderStateMixin {
   late WebViewController _controller = WebViewController();
 
   // empty list
@@ -37,17 +37,16 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
     WidgetsFlutterBinding.ensureInitialized();
     WebViewPlatform.instance;
 
-    _controller = WebViewController()   
-    // allowing JS for WebView
-    ..setJavaScriptMode(JavaScriptMode.unrestricted);
+    _controller = WebViewController()
+      // allowing JS for WebView
+      ..setJavaScriptMode(JavaScriptMode.unrestricted);
     // Running JS script to remove header, footer, scroll up button elements
     // from html after page load
-    _controller.setNavigationDelegate(
-      NavigationDelegate(
-        onPageFinished: (String url) {
-          // final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    _controller
+        .setNavigationDelegate(NavigationDelegate(onPageFinished: (String url) {
+      // final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
 
-          _controller.runJavaScript('''
+      _controller.runJavaScript('''
             var header = document.querySelector('header');
             if (header) {
               header.remove();
@@ -65,9 +64,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
 
             
           ''');
-        }
-      )
-    );
+    }));
     _fetchRSSFeed();
   }
 
@@ -112,29 +109,29 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
     } catch (e) {
       debugPrint('Error: $e');
     }
-    _showCustomSnackBar(context, 'Refreshed');
+    CustomSnackBar(context).show(context, this, 'Refreshed');
   }
 
   // go to next page in the _currentIndex
   Future<void> _goToNext() async {
-    if (_currentIndex < _articleLinks.length -1 ) {
+    if (_currentIndex < _articleLinks.length - 1) {
       setState(() {
         _currentIndex++;
       });
       _controller.loadRequest(Uri.parse(_articleLinks[_currentIndex]));
     }
-    _showCustomSnackBar(context, 'Next');
+    CustomSnackBar(context).show(context, this, 'Next');
   }
 
   // go to previous page in the _currentIndex
   Future<void> _goToPrev() async {
-    if (_currentIndex > 0 ) {
+    if (_currentIndex > 0) {
       setState(() {
         _currentIndex--;
       });
       _controller.loadRequest(Uri.parse(_articleLinks[_currentIndex]));
     }
-    _showCustomSnackBar(context, 'Previous');
+    CustomSnackBar(context).show(context, this, 'Previous');
   }
 
   // share current post
@@ -147,99 +144,12 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
     } catch (e) {
       debugPrint('Error: $e');
     }
-    _showCustomSnackBar(context, 'Sharing...');
-  }
-
-  // custom snackbar component for displaying messages below
-  void _showCustomSnackBar(BuildContext context, String message) {
-    // prevent multiple snackbars being called when spammed
-    if (_isSnackBarVisible || !context.mounted) return;
-
-    // snackbar visible while _showCustomSnackBar is called
-    _isSnackBarVisible = true;
-
-    final overlay = Overlay.of(context);
-    // create animation
-    final animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: Scaffold.of(context),
-    );
-
-    // set the animation curve effect
-    final animation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeOutExpo,
-    );
-
-    // snackbar appearance
-    final overlayEntry = OverlayEntry(
-      builder: (context) {
-        return AnimatedBuilder(
-          animation: animation,
-          builder: (context, child) {
-            return Positioned(
-              // using tween to set the beginning and ending position of snackbar anim
-              bottom: Tween<double>(begin: -40, end: 12).evaluate(animation),
-              left: 140,
-              right: 140,
-              child: Opacity(
-                opacity: 0.9,
-                child: Material(
-                  color: Colors.transparent,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(
-                      color: AppColors.customSnackBarBackgroundColor(Theme.of(context).brightness),
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: [
-                        // subtle shadow
-                        BoxShadow(
-                          color: const Color.fromARGB(26, 0, 0, 0),
-                          blurRadius: 10,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        message,
-                        style: TextStyle(
-                          color: AppColors.customSnackBarTextColor(Theme.of(context).brightness),
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-
-    // inserting overlay entry into overlay to show the snackbar
-    overlay.insert(overlayEntry);
-
-    // start anim in forward motion
-    animationController.forward();
-
-    // reverse the animation, remove overlayEntry from overlay, and reset snackbar visibility flag after 1 second
-    Future.delayed(const Duration(seconds: 1), () {
-      animationController.reverse().then((_) {
-        overlayEntry.remove(); // removing overlayEntry from Overlay.of(context)
-        animationController.dispose(); // dispose anim controller
-        _isSnackBarVisible = false; // resetting the flag after the snackbar disappears
-      });
-    });
+    CustomSnackBar(context).show(context, this, 'Sharing...');
   }
 
   // main widgets part
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -262,7 +172,8 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _goToNext,
                     tooltip: 'Next',
                     elevation: 3,
-                    foregroundColor: AppColors.nextButtonColor(Theme.of(context).brightness),
+                    foregroundColor:
+                        AppColors.nextButtonColor(Theme.of(context).brightness),
                     child: Icon(
                       Icons.arrow_upward_rounded,
                       size: 30,
@@ -272,7 +183,8 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _goToPrev,
                     tooltip: 'Previous',
                     elevation: 3,
-                    foregroundColor: AppColors.prevButtonColor(Theme.of(context).brightness),
+                    foregroundColor:
+                        AppColors.prevButtonColor(Theme.of(context).brightness),
                     child: Icon(
                       Icons.arrow_downward_rounded,
                       size: 30,
@@ -282,7 +194,8 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _refreshWebView,
                     tooltip: 'Refresh',
                     elevation: 3,
-                    foregroundColor: AppColors.refreshButtonColor(Theme.of(context).brightness),
+                    foregroundColor: AppColors.refreshButtonColor(
+                        Theme.of(context).brightness),
                     child: Icon(
                       Icons.refresh_rounded,
                       size: 30,
@@ -292,7 +205,8 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
                     onPressed: _shareCurrentPage,
                     tooltip: 'Share',
                     elevation: 3,
-                    foregroundColor: AppColors.shareButtonColor(Theme.of(context).brightness),
+                    foregroundColor: AppColors.shareButtonColor(
+                        Theme.of(context).brightness),
                     child: Icon(
                       Icons.share_rounded,
                       size: 26,
@@ -306,7 +220,4 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin {
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => false;
 }

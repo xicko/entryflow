@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:entryflow/navs/home_nav.dart';
 import 'package:entryflow/navs/news_nav.dart';
-import '/base_controller.dart';
-import '../navigationbar.dart';
+import 'package:entryflow/base_controller.dart';
+import 'package:entryflow/navigationbar.dart';
 
 class BaseScreen extends StatelessWidget {
   const BaseScreen({super.key});
@@ -16,7 +16,7 @@ class BaseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() => IndexedStack(
-            index: BaseController.to.currentIndex.value,
+            index: BaseController.to.currentNavIndex.value,
             children: const [
               HomeNav(),
               NewsNav(),
