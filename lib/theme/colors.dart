@@ -50,7 +50,7 @@ class AppColors {
   static const Color darkItemTitleTextColor = Colors.white;
   static const Color darkItemSubtitleTextColor = Colors.white;
 
-  // Utility to get the appropriate color based on brightness
+  // Device theme-s hamaarch tohirson ungu uguh method
   static Color titleTextColor(Brightness brightness) {
     return brightness == Brightness.dark
         ? darkTitleTextColor
@@ -161,7 +161,7 @@ class AppColors {
   static const Color darkCustomSnackBarTextColor = Colors.black;
   static const Color darkCustomSnackBarBackgroundColor = Colors.white;
 
-  // Utility to get the appropriate color based on brightness
+  // Device theme-s hamaarch tohirson ungu uguh method
   static Color nextButtonColor(Brightness brightness) {
     return brightness == Brightness.dark
         ? darkNextButtonColor

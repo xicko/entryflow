@@ -1,11 +1,6 @@
-// HomePage is the main screen that fetches and displays a list of items
-// from a remote API. The page is made to show the articles with their image, title,
-// and created date using animated list for smooth item animations. The user can filter the
-// results by title and it'll display the matching articles in real-time. The app also supports
-// pagination, automatically fetching new items when the user scrolls to the bottom of the list.
-// It also has functionality to refresh, add, and delete items. When adding a new item, it appears
-// at the top of the list, and when deleting, the first article is removed with an animation.
-// A custom cache manager is used for image caching to save resources and reduce data usage.
+// HomePage n api-s tatagdsan itemuudiig jagsaaj haruulah gol screen bolno. Jagsaalt n itemuudiig
+// zurag, garchig bolon nemegdsen on sar udurtei n tseverhen animationtoi haruulna, mun jagsaaltaas
+// shuult hiij, haih, item nemj hasah bolomjtoi. Itemuudiin zurguud cache hiigdej 7 honog hadgalagdana.
 
 import 'package:entryflow/base_controller.dart';
 import 'package:entryflow/controllers/add_item_controller.dart';
@@ -28,18 +23,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // controllers
+  // BaseController listKey variable-g ene page-d ashiglah local variable listKey-d zalgav
   final GlobalKey<AnimatedListState> listKey = BaseController.to.listKey;
 
-  // runs at app start
   @override
   void initState() {
     super.initState();
     initializeApp();
   }
 
+  // app ehend unshih functionuud
   Future<void> initializeApp() async {
-    // fetching items from api
     final fetchItemsController = Get.put(FetchItemsController(listKey));
     fetchItemsController.fetchItems();
 
@@ -55,13 +49,13 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // main screen widgets
+  // MAIN UI
   @override
   Widget build(BuildContext context) {
-    // getting user's device screen height
+    // Hereglegchiin utasnii height-g huviar avah
     double screenHeight = MediaQuery.of(context).size.height;
 
-    // checking if dark mode is on for styling(theme) some widgets
+    // DarkMode assan uyd zarim UI elementuudiig uurchluhud ashiglah flag
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
 
@@ -86,18 +80,18 @@ class _HomePageState extends State<HomePage> {
 
               ListSearch(),
 
-              // main list
+              // Main List UI
               Expanded(
                   child: Obx(
                 () => AnimatedList(
-                    // bit of padding at the bottom of items
+                    // list-d vertical padding nemev
                     padding: EdgeInsets.only(bottom: 60, top: 6),
                     key: listKey,
                     controller: BaseController.to.scrollController,
                     initialItemCount: BaseController.to.items.length,
                     itemBuilder: (context, index, animation) {
                       if (index >= BaseController.to.items.length) {
-                        // 0px box if the index is invalid
+                        // index baihgui bol hooson SizedBox
                         return const SizedBox.shrink();
                       }
                       final item = BaseController.to.items[index];

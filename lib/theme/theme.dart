@@ -1,8 +1,8 @@
-// element specific colors are in colors.dart
+// busad color palette /colors.dart -d bga bolno
 
 import 'package:flutter/material.dart';
 
-// ==================================================================================================
+// ===============================================================================
 ThemeData lightMode = ThemeData(
   fontFamily: 'Montserrat',
   scaffoldBackgroundColor: const Color(0xFFF5F5F5), // grey 100
@@ -63,7 +63,7 @@ ThemeData lightMode = ThemeData(
   ),
 );
 
-// ==================================================================================================
+// ===============================================================================
 ThemeData darkMode = ThemeData(
   fontFamily: 'Montserrat',
   scaffoldBackgroundColor: const Color.fromARGB(255, 20, 20, 20), // gray

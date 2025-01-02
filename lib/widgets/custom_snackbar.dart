@@ -1,5 +1,3 @@
-// currently only used in news page
-
 import 'package:entryflow/base_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +10,7 @@ class CustomSnackBar {
 
   CustomSnackBar._internal();
 
-  // custom snackbar component for displaying messages
+  // hereglegchid message uguh custom snackbar
   void show(
       BuildContext context, TickerProvider tickerProvider, String message) {
     if (BaseController.to.isCustomSnackBarVisible.value || !context.mounted) {
@@ -22,27 +20,33 @@ class CustomSnackBar {
     BaseController.to.isCustomSnackBarVisible.value = true;
 
     final overlay = Overlay.of(context);
+
     // animation controller
     final animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
-      vsync:
-          tickerProvider, // replace this if you encounter a TickerProvider issue
+      vsync: tickerProvider,
     );
 
-    // animation curve effect
+    // animation effect
     final animation = CurvedAnimation(
       parent: animationController,
       curve: Curves.easeOutExpo,
     );
 
-    // snackbar appearance
+    // Hereglegchiin utasnii height-g huviar avah
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Snackbar UI
     final overlayEntry = OverlayEntry(
       builder: (context) {
         return AnimatedBuilder(
           animation: animation,
           builder: (context, child) {
             return Positioned(
-              bottom: Tween<double>(begin: -40, end: 12).evaluate(animation),
+              // tween ashiglaj snackbar animation ehleh bolon tugsuhduu ymar position-d ochihiig uguv
+              bottom: Tween<double>(
+                      begin: -screenHeight * 0.3, end: screenHeight * 0.02)
+                  .evaluate(animation),
               left: 0,
               right: 0,
               child: Opacity(
@@ -50,7 +54,6 @@ class CustomSnackBar {
                 child: Material(
                   color: Colors.transparent,
                   child: Center(
-                    // Ensures the content stays in the center of the screen
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 12, horizontal: 16),
@@ -84,13 +87,13 @@ class CustomSnackBar {
       },
     );
 
-    // insert overlay entry
+    // overlay-d overlayEntry-g nemeh
     overlay.insert(overlayEntry);
 
-    // start animation
+    // animation ehluuleh
     animationController.forward();
 
-    // reverse animation, remove overlay, and reset visibility flag
+    // animation uhraaj, overlay-g hasaj, visibility flag untraav
     Future.delayed(const Duration(seconds: 1), () {
       animationController.reverse().then((_) {
         overlayEntry.remove();

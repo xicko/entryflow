@@ -6,9 +6,9 @@ class CustomCacheManager {
   static final CacheManager _customCacheManager = CacheManager(
     Config(
       cacheKey,
-      // setting custom stalePeriod, caches are auto-cleaned after 7 days
+      // cache hiigdsen asset uud 7 honogiin daraa ustah
       stalePeriod: Duration(days: 7),
-      // setting the number of max cached objects, oldest is cleaned to make way for the new
+      // cache hiigdeh niit asset uudiin limit, shine asset cachelagdah uyd hamgiin huuchin n ustana
       maxNrOfCacheObjects: 100,
     ),
   );

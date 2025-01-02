@@ -1,4 +1,4 @@
-// App Name: EntryFlow
+// App ner: EntryFlow
 // App icon/logo is a list document icon with gradient added, from: https://www.flaticon.com/free-icon/list-document-interface-symbol_36063
 // Main color scheme used in the app: Hex #7E577F - Dark Pastel Pink, Hex #124870 - Dark Pastel Blue, #FFFFFF White, #262626 Dark Gray
 // Font family used: Montserrat

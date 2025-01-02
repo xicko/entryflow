@@ -1,6 +1,7 @@
 import 'package:entryflow/base_controller.dart';
 import 'package:entryflow/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ListManageButtons extends StatelessWidget {
   const ListManageButtons({super.key});
@@ -20,20 +21,25 @@ class ListManageButtons extends StatelessWidget {
             color: AppColors.refreshListColor(Theme.of(context).brightness),
           ),
         ),
-        IconButton(
-          onPressed: BaseController.to.isSearchMode.value
-              ? null
-              : () {
-                  BaseController.to.addAnItem(context);
-                },
-          icon: Icon(
-            Icons.add,
-            size: 30,
-            color:
-                // pastel blue,
-                AppColors.addItemColor(Theme.of(context).brightness),
+
+        // haih yvtsad item nemeh tovch huchingui
+        Obx(
+          () => IconButton(
+            onPressed: BaseController.to.isSearchMode.value
+                ? null
+                : () {
+                    BaseController.to.addAnItem(context);
+                  },
+            icon: Icon(
+              Icons.add,
+              size: 30,
+              color:
+                  // pastel blue ungu
+                  AppColors.addItemColor(Theme.of(context).brightness),
+            ),
           ),
         ),
+
         IconButton(
           onPressed: () {
             BaseController.to.deleteAnItem(context);
@@ -42,7 +48,7 @@ class ListManageButtons extends StatelessWidget {
             Icons.delete,
             size: 24,
             color:
-                // pastel pink
+                // pastel pink ungu
                 AppColors.deleteItemColor(Theme.of(context).brightness),
           ),
         ),

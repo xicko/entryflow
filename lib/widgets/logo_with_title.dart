@@ -6,6 +6,7 @@ class LogoWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // DarkMode assan uyd zarim UI elementuudiig uurchluhud ashiglah flag
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     // Logo and Name
@@ -13,7 +14,7 @@ class LogoWithTitle extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image(
-            // changing logo src based on theme
+            // DarkMode assan tohioldold logonii uur huvilbariig haruulna
             image: isDarkMode
                 ? AssetImage('assets/logoDark.png')
                 : AssetImage('assets/logoLight.png'),

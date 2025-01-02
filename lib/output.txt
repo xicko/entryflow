@@ -11,6 +11,11 @@ C:.
 ÃÄÄÄconstants
 ³       nav_ids.dart
 ³       
+ÃÄÄÄcontrollers
+³       add_item_controller.dart
+³       fetch_items_controller.dart
+³       rss_feed_controller.dart
+³       
 ÃÄÄÄmodels
 ³       item.dart
 ³       
@@ -23,9 +28,20 @@ C:.
 ³       news_page.dart
 ³       
 ÃÄÄÄservices
-³       fetch_service.dart
+ÃÄÄÄtheme
+³       colors.dart
+³       theme.dart
 ³       
 ÃÄÄÄutils
 ³       custom_cache_manager.dart
+³       webview_helper.dart
 ³       
 ÀÄÄÄwidgets
+        custom_floating_button.dart
+        custom_snackbar.dart
+        list_manage_buttons.dart
+        list_search.dart
+        logo_with_title.dart
+        simple_snackbar.dart
+        webview_buttons.dart
+        

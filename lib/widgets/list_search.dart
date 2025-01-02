@@ -8,17 +8,17 @@ class ListSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // sizedbox to set equal heights for search input and button
+    // SizedBox ashiglaj input button hoyriin height tentsuulev
     return SizedBox(
       height: 48,
       child: Row(
         children: [
+          // SEARCH INPUT UI
           Expanded(
               child: Material(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
             elevation: 0,
-            // search input
             child: TextField(
               controller: BaseController.to.searchController,
               style: TextStyle(
@@ -56,13 +56,13 @@ class ListSearch extends StatelessWidget {
                 ),
               ),
               onChanged: (text) {
-                // making search mode true while input field is being used, to effectively activate/disable the search button
+                // search input-d text bichigdsen uyd isSearchMode flag-g true bolgono
                 BaseController.to.isSearchMode.value = text.isNotEmpty;
               },
             ),
           )),
 
-          // container for button stroke
+          // SEARCH BUTTON UI
           Container(
               height: 48,
               decoration: BoxDecoration(
@@ -85,10 +85,9 @@ class ListSearch extends StatelessWidget {
                     topRight: Radius.circular(8),
                     bottomRight: Radius.circular(8)),
               ),
-              // search button
               child: Obx(
                 () => ElevatedButton(
-                  // button is activated while the user is searching
+                  // haih tovch zuvhun search input ashiglagdaj bh uyd ajillana
                   onPressed: BaseController.to.isSearchMode.value
                       ? () {
                           BaseController.to.performSearch(context);
@@ -100,7 +99,6 @@ class ListSearch extends StatelessWidget {
                         Theme.of(context).brightness),
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      // rounding the edges
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(8),
                           bottomRight: Radius.circular(8)),

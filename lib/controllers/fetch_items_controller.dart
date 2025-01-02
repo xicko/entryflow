@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:entryflow/base_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart'; // image cache
+import 'package:entryflow/base_controller.dart'; // state mngmt
 import 'package:entryflow/theme/colors.dart'; // theme specific colors
-import 'package:entryflow/utils/custom_cache_manager.dart'; // custom cache manager
+import 'package:entryflow/utils/custom_cache_manager.dart'; // tusgai cache manager
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:entryflow/models/item.dart';
-import 'package:intl/intl.dart'; // used intl for converting date to human readable date
+import 'package:intl/intl.dart'; // on sar udur hun unshihad taatai huvilbart huvirgahad intl ashiglav
 
 class FetchItemsController extends GetxController {
   final GlobalKey<AnimatedListState> listKey;
@@ -15,16 +15,17 @@ class FetchItemsController extends GetxController {
   FetchItemsController(this.listKey);
 
   // main method to fetch items from api with page, limit, and title parameters
+  // api-s page/limit/title parameteruud ashiglaj jagsaaltnii item duudah gol method
   Future<void> fetchItems({String title = '', http.Client? client}) async {
-    // preventing fetching if already in loading state
+    // spam hiigdsen uyd olon tatagdahaas sergiileh
     if (BaseController.to.isLoading.value) return;
 
-    // set loading state to true when fetchItems is called(during)
+    // fetchItems duudagdaj bh hugatsaand isLoading state true
     BaseController.to.isLoading.value = true;
 
-    // if title is provided (user is searching) clear the current visible items
+    // search hiij ehlesn uyd odoogiin haragdaj bga jagsaaltiig hoosloh
     if (title.isNotEmpty) {
-      // removing item with animation
+      // jagsaaltaas item hasagdah animation
       for (int i = BaseController.to.items.length - 1; i >= 0; i--) {
         listKey.currentState?.removeItem(
           i,
@@ -34,27 +35,27 @@ class FetchItemsController extends GetxController {
         );
       }
 
-      // clear all items
+      // jagsaaltiig buren hoosloj
       BaseController.to.items.clear();
-      // reset page parameter to 1(default)
+      // page parameteriig 1 ruu butsaav
       BaseController.to.fetchPage.value = 1;
     }
 
     try {
-      // making http get request to fetch items from api
+      // http handalt hiij api-s json itemuud tatav
       final response = await http.get(
         Uri.parse(
           'https://67062875031fd46a83122a52.mockapi.io/api/v1/news?page=${BaseController.to.fetchPage.value}&limit=${BaseController.to.fetchLimit.value}&title=$title',
         ),
       );
 
-      // if response is OK, decode the json response and map the json into List objects
+      // http request amjilttai bolson bol tatsan json-g dart data bolgoj decode hiij, Item(dart object) map hiij jagsaav
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = json.decode(response.body);
 
         final newItems = jsonData.map((json) => Item.fromJson(json)).toList();
 
-        // adding the new items with animation
+        // jagsaaltad item nemegdeh animation
         for (int i = 0; i < newItems.length; i++) {
           int indexToInsert = BaseController.to.items.length + i;
 
@@ -64,7 +65,7 @@ class FetchItemsController extends GetxController {
           }
         }
 
-        // add the new items to the List, increment page number for the next fetch
+        // jagsaaltiin UI-d newItems nemj, daraagiin tataltad zoriulj page param negeer nemev
         BaseController.to.items.addAll(newItems);
         BaseController.to.fetchPage.value++;
       } else {
@@ -72,13 +73,14 @@ class FetchItemsController extends GetxController {
         throw Exception('Failed to load');
       }
     } catch (e) {
-      debugPrint('Error fetching items: $e');
+      debugPrint('Error fetching: $e');
     } finally {
-      // setting loading to false after fetching is done
+      // isLoading state-g item tatalt duussanii daraa false
       BaseController.to.isLoading.value = false;
     }
   }
 
+  // jagsaaltah nemegdeh item UI
   Widget buildListItem(
       BuildContext context, Item item, Animation<double> animation, int index) {
     return FadeTransition(
@@ -92,7 +94,7 @@ class FetchItemsController extends GetxController {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: ListTile(
             leading: CachedNetworkImage(
-              // utils/custom_cache_manager.dart
+              // utils/custom_cache_manager.dart zurag cache
               cacheManager: CustomCacheManager.getInstance(),
               imageUrl: item.image,
               width: 100,
@@ -126,6 +128,7 @@ class FetchItemsController extends GetxController {
     );
   }
 
+  // jagsaaltah hasagdah item UI
   Widget buildRemovedItem(
       BuildContext context, Item item, Animation<double> animation) {
     return FadeTransition(
@@ -134,12 +137,12 @@ class FetchItemsController extends GetxController {
         sizeFactor: animation,
         child: Card(
           margin: EdgeInsets.symmetric(vertical: 8),
-          //color: AppColors.itemCardColor(Theme.of(context).brightness),
+          color: AppColors.itemCardColor(Theme.of(context).brightness),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: ListTile(
             leading: CachedNetworkImage(
-              // utils/custom_cache_manager.dart
+              // utils/custom_cache_manager.dart zurag cache
               cacheManager: CustomCacheManager.getInstance(),
               imageUrl: item.image,
               width: 100,

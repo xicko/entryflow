@@ -1,16 +1,14 @@
 # EntryFlow
 
-App icon/logo is a list document icon with gradient added, from: <a href='https://www.flaticon.com/free-icon/list-document-interface-symbol_36063' target="_blank">https://www.flaticon.com/free-icon/list-document-interface-symbol_36063</a>
+App-ийн лого нь градиент өнгө нэмсэн жагсаалтын тэмдэг, эх сурвалж: <a href='https://www.flaticon.com/free-icon/list-document-interface-symbol_36063' target="_blank">https://www.flaticon.com/free-icon/list-document-interface-symbol_36063</a>
 
-Main color scheme used in the app: HEX #7E577F - Dark Pastel Pink, HEX #124870 - Dark Pastel Blue, #FFFFFF - White, #262626 - Dark Gray
+App-д хэрэнлэсэн гол color scheme: HEX #7E577F - Dark Pastel Pink, HEX #124870 - Dark Pastel Blue, #FFFFFF - White, #262626 - Dark Gray
 
-Font family used: Montserrat
+Ашигласан font family: Montserrat
 
-The app's goal is simple: manage lists from an API with options to add, remove, filter the items, and display news/blog posts
+Апп-ийн зорилго нь энгийн: API дата татаж жагсаалтад харуулах, нэмэх, устгах, шүүх, мөн мэдээ/блог постуудын дэлгэрэнгүйг харуулах.
 
-Followed minimalistic, clean UI design
-
-Focused on the main tasks, no distraction, easy on the eyes
+Гол зүйлдээ төвлөрсөн, минималист, нүдэнд тааламжтай цэвэр UI дизайныг дагав.
 
 <a href='https://dl.dashnyam.com/entryflow.apk'>Latest Test Build APK Download</a>
 
