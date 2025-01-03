@@ -6,13 +6,18 @@ import 'package:entryflow/widgets/simple_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:entryflow/models/item.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BaseController extends GetxController {
+  // getx controller heregleh
   static BaseController get to => Get.find();
 
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   final TextEditingController searchController = TextEditingController();
   final ScrollController scrollController = ScrollController();
+
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController imageUrlController = TextEditingController();
 
   // observable variables
   var currentNavIndex = 0.obs;
@@ -25,6 +30,10 @@ class BaseController extends GetxController {
   RxBool isSearchMode = false.obs; // hereglegch yag odoo haij bag eseh flag
   RxInt currentPostIndex =
       2.obs; // webview rss feed-d bui 3dah postoor ehlene(dasgald zaasan medee)
+  RxBool isAboutMeModalVisible = false.obs;
+
+  RxBool isAddItemModalVisible = false.obs;
+  RxBool addItemModalAnim = false.obs;
 
   // fetch hiisnii daraa duurne
   final _items = <Item>[].obs; // hooson item list
@@ -33,20 +42,57 @@ class BaseController extends GetxController {
   List<Item> get items => _items;
   List<String> get articleLinks => _articleLinks;
 
+  // buh modal neg dor haah
+  void closeModals() {
+    BaseController.to.isAboutMeModalVisible.value = false;
+    BaseController.to.isAddItemModalVisible.value = false;
+  }
+
   // navbar index solih method
   void changePage(int index) {
     currentNavIndex.value = index;
+    closeModals();
+  }
+
+  // url link neeh method
+  Future<void> linkNeeh(String url) async {
+    final Uri link = Uri.parse(url);
+    if (!await launchUrl(link)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  // aboutme modal neeh/haah
+  void toggleAboutMeModal() {
+    isAboutMeModalVisible.value = !isAboutMeModalVisible.value;
+
+    if (isAboutMeModalVisible.value) {
+      BaseController.to.isAddItemModalVisible.value = false;
+    }
+  }
+
+  // additem modal neeh/haah
+  void toggleAddItemModal() {
+    if (addItemModalAnim.value) {
+      // fade out hiih animation ehluuleh
+      addItemModalAnim.value = false;
+
+      // modaliin visibility-g animation buren duussanii daraa haah
+      Future.delayed(Duration(milliseconds: 300), () {
+        isAddItemModalVisible.value = false;
+      });
+    } else {
+      // fade in hiih animation ehluuleh
+      isAddItemModalVisible.value = true;
+
+      // modaliin visibility-g animation buren duussanii daraa neeh
+      Future.delayed(Duration(milliseconds: 200), () {
+        addItemModalAnim.value = true;
+      });
+    }
   }
 
   // METHODS FOR LIST
-  // list-d neg item nemeh
-  void addAnItem(BuildContext context) {
-    if (!BaseController.to.isLoading.value) {
-      final addItemController = Get.find<AddItemController>();
-      addItemController.addNewItem();
-      SimpleSnackBar(context).show('Adding...');
-    }
-  }
 
   // list-s neg item hasah
   void deleteAnItem(BuildContext context) {
@@ -67,6 +113,7 @@ class BaseController extends GetxController {
       );
     }
     SimpleSnackBar(context).show('Removed');
+    closeModals();
   }
 
   // search button
@@ -81,6 +128,7 @@ class BaseController extends GetxController {
     fetchItemsController.fetchItems(title: searchController.text.trim());
 
     SimpleSnackBar(context).show('Searching...');
+    closeModals();
   }
 
   // list refresh hiih
@@ -114,6 +162,7 @@ class BaseController extends GetxController {
       final fetchItemsController = Get.put(FetchItemsController(listKey));
       fetchItemsController.fetchItems();
     });
+    closeModals();
   }
 
   // jagsaaltiin hamgiin doosh hurtel tohioldold daraagiin 10 item tataj haruulah

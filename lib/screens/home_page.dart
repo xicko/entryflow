@@ -5,12 +5,14 @@
 import 'package:entryflow/base_controller.dart';
 import 'package:entryflow/controllers/add_item_controller.dart';
 import 'package:entryflow/controllers/fetch_items_controller.dart';
+import 'package:entryflow/theme/colors.dart';
+import 'package:entryflow/widgets/aboutme_modal.dart';
+import 'package:entryflow/widgets/additem_modal.dart';
 import 'package:entryflow/widgets/list_manage_buttons.dart';
 import 'package:entryflow/widgets/list_search.dart';
 import 'package:entryflow/widgets/logo_with_title.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:entryflow/theme/colors.dart'; // theme specific colors
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -63,46 +65,65 @@ class _HomePageState extends State<HomePage> {
     final fetchItemsController = Get.put(FetchItemsController(listKey));
 
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-              SizedBox(height: screenHeight * 0.112), // top space
+        body: Stack(
+      children: [
+        // Main Content UI
+        Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              children: [
+                SizedBox(height: screenHeight * 0.112), // top space
 
-              LogoWithTitle(),
+                LogoWithTitle(),
 
-              SizedBox(height: 14), // spacer
+                SizedBox(height: 14), // spacer
 
-              ListManageButtons(),
+                ListManageButtons(),
 
-              SizedBox(height: 10), // spacer
+                SizedBox(height: 10), // spacer
 
-              ListSearch(),
+                ListSearch(),
 
-              // Main List UI
-              Expanded(
-                  child: Obx(
-                () => AnimatedList(
-                    // list-d vertical padding nemev
-                    padding: EdgeInsets.only(bottom: 60, top: 6),
-                    key: listKey,
-                    controller: BaseController.to.scrollController,
-                    initialItemCount: BaseController.to.items.length,
-                    itemBuilder: (context, index, animation) {
-                      if (index >= BaseController.to.items.length) {
-                        // index baihgui bol hooson SizedBox
-                        return const SizedBox.shrink();
-                      }
-                      final item = BaseController.to.items[index];
-                      return fetchItemsController.buildListItem(
-                          context, item, animation, index);
-                    }),
-              )),
-            ],
+                // Main List UI
+                Expanded(
+                    child: Obx(
+                  () => AnimatedList(
+                      // list-d vertical padding nemev
+                      padding: EdgeInsets.only(bottom: 60, top: 6),
+                      key: listKey,
+                      controller: BaseController.to.scrollController,
+                      initialItemCount: BaseController.to.items.length,
+                      itemBuilder: (context, index, animation) {
+                        if (index >= BaseController.to.items.length) {
+                          // index baihgui bol hooson SizedBox
+                          return const SizedBox.shrink();
+                        }
+                        final item = BaseController.to.items[index];
+                        return fetchItemsController.buildListItem(
+                            context, item, animation, index);
+                      }),
+                )),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+
+        // About Me Modal
+        Obx(
+          () => AnimatedPositioned(
+            duration: Duration(milliseconds: 450),
+            curve: Curves.easeInOutQuad,
+            bottom: BaseController.to.isAboutMeModalVisible.value ? 0 : -200,
+            right: 0,
+            left: 0,
+            child: AboutMeModal(),
+          ),
+        ),
+
+        // Add Item Modal
+        Positioned(child: AddItemModal())
+      ],
+    ));
   }
 }

@@ -14,10 +14,9 @@ class SimpleSnackBar {
   bool _isSimpleSnackBarVisible = false;
 
   void show(String message) {
-    // prevent multiple snackbars being called when spammed
+    // olon snackbar negen zereg duudagdahgui bolgoh
     if (_isSimpleSnackBarVisible) return;
 
-    // snackbar visible while _showCustomSnackBar is called
     _isSimpleSnackBarVisible = true;
 
     ScaffoldMessenger.of(context)

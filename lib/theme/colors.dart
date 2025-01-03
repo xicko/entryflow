@@ -27,6 +27,14 @@ class AppColors {
   static const Color lightItemTitleTextColor = Colors.black;
   static const Color lightItemSubtitleTextColor = Colors.black;
 
+  static const Color lightAboutMeBackgroundColor =
+      Color.fromARGB(255, 207, 228, 244);
+  static const Color lightAboutMeTextColor = Colors.black;
+
+  static const Color lightAddItemModalBackgroundColor = Colors.white;
+  static const Color lightCancelButtonBackgroundColor =
+      Color.fromARGB(255, 213, 213, 213);
+
   // Dark
   static const Color darkTitleTextColor = Colors.white;
 
@@ -49,6 +57,14 @@ class AppColors {
   static const Color darkItemCardColor = Color.fromRGBO(33, 33, 33, 1);
   static const Color darkItemTitleTextColor = Colors.white;
   static const Color darkItemSubtitleTextColor = Colors.white;
+
+  static const Color darkAboutMeBackgroundColor = Color.fromRGBO(33, 33, 33, 1);
+  static const Color darkAboutMeTextColor = Color.fromARGB(255, 255, 255, 255);
+
+  static const Color darkAddItemModalBackgroundColor =
+      Color.fromARGB(255, 38, 38, 38);
+  static const Color darkCancelButtonBackgroundColor =
+      Color.fromRGBO(66, 66, 66, 1);
 
   // Device theme-s hamaarch tohirson ungu uguh method
   static Color titleTextColor(Brightness brightness) {
@@ -139,6 +155,30 @@ class AppColors {
     return brightness == Brightness.dark
         ? darkItemSubtitleTextColor
         : lightItemSubtitleTextColor;
+  }
+
+  static Color aboutMeBackgroundColor(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? darkAboutMeBackgroundColor
+        : lightAboutMeBackgroundColor;
+  }
+
+  static Color aboutMeTextColor(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? darkAboutMeTextColor
+        : lightAboutMeTextColor;
+  }
+
+  static Color addItemModalBackgroundColor(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? darkAddItemModalBackgroundColor
+        : lightAddItemModalBackgroundColor;
+  }
+
+  static Color cancelButtonBackgroundColor(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? darkCancelButtonBackgroundColor
+        : lightCancelButtonBackgroundColor;
   }
 
   // NewsPage =================================================

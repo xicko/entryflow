@@ -14,6 +14,27 @@ class FetchItemsController extends GetxController {
 
   FetchItemsController(this.listKey);
 
+  void addNewItem(String title, String imageUrl) {
+    // Get current time for createdAt
+    DateTime createdAt = DateTime.now();
+
+    // Create the new item
+    Item newItem = Item(
+      id: UniqueKey().toString(), // Generate a unique id for the new item
+      title: title,
+      image: imageUrl,
+      createdAt: createdAt,
+    );
+
+    // Add the item to the local list
+    BaseController.to.items.insert(0, newItem); // Insert at the top
+
+    // Insert the item into the AnimatedList with an animation
+    listKey.currentState?.insertItem(0);
+
+    // Optional: Call your API to store the new item (if needed)
+  }
+
   // main method to fetch items from api with page, limit, and title parameters
   // api-s page/limit/title parameteruud ashiglaj jagsaaltnii item duudah gol method
   Future<void> fetchItems({String title = '', http.Client? client}) async {
